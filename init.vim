@@ -53,22 +53,53 @@ let g:ale_fixers = {
 " ##########[ REMAPS ]########################################################
 
 " VimRc
-nnoremap <Leader>pi :PlugInstall<CR>
-nnoremap <Leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>pi <cmd>PlugInstall<cr>
+nnoremap <leader>sv <cmd>source $MYVIMRC<cr>
 
 " Tabs
-nnoremap <C-h> :tabprevious<CR>
-nnoremap <C-l> :tabnext<CR>
-nnoremap <C-n> :tabnew<Space>
+nnoremap <c-h> <cmd>tabprevious<cr>
+nnoremap <c-l> <cmd>tabnext<cr>
+nnoremap <c-n> :tabnew<space>
 
 " NerdTree
-nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <c-t> <cmd>NERDTreeToggle<CR>
 
 " Telescope
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" Stop highlighting text after search
+nnoremap <leader><space> <cmd>noh<cr>
+
+" TOP 5 VIM REMAPS BY PRIMEAGEN
+" 5 Copying to the end of the line
+nnoremap Y y$
+
+" 4 Keeping it centered
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap J mzJ`z
+
+" 3 Undo breakpoints
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ! !<c-g>u
+inoremap ? ?<c-g>u
+inoremap <space> <space><c-g>u
+
+" 2 Jumplist mutations
+noremap <expr> k (v:count > 5 ? "m'".v:count : "") . 'k'
+noremap <expr> j (v:count > 5 ? "m'".v:count : "") . 'j'
+
+" 1 Moving text
+vnoremap J :m '>+1<cr>gv=gv
+vnoremap K :m '<-2<cr>gv=gv
+inoremap <c-j> <esc>:m .+1<cr>==
+inoremap <c-k> <esc>:m .-2<cr>==
+nnoremap <leader>j :m .+1<cr>==
+nnoremap <leader>k :m .-2<cr>==
 
 " ##########[ TODOS AND IDEAS ]###############################################
 
