@@ -26,6 +26,10 @@ Plug 'morhetz/gruvbox'
 Plug 'dense-analysis/ale'
 Plug 'preservim/nerdtree'
 
+" Telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
 call plug#end()
 
 
@@ -60,7 +64,14 @@ nnoremap <C-n> :tabnew<Space>
 " NerdTree
 nnoremap <C-t> :NERDTreeToggle<CR>
 
+" Telescope
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
 " ##########[ TODOS AND IDEAS ]###############################################
+
 " Maybe pyling to ale linters only if a pylintrc
 " file exists in the root of project
 "
