@@ -30,6 +30,11 @@ Plug 'preservim/nerdtree'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
+" Python syntax
+" NOTE: make sure that you run :UpdateRemotePlugins
+Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+
+
 call plug#end()
 
 
@@ -40,21 +45,25 @@ colorscheme gruvbox
 set background=dark
 
 " ALE
+let g:python3_host_prog='/home/mp/anaconda3/envs/nvim/bin/python'
 let g:ale_fix_on_save = 1
 let g:ale_linters = {
 \   'python': ['pep8', 'pydocstyle', 'bandit', 'mypy'],
 \}
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['black'],
+\   'python': ['black', 'isort'],
 \}
 
 
 " ##########[ REMAPS ]########################################################
 
 " VimRc
-nnoremap <leader>pi <cmd>PlugInstall<cr>
-nnoremap <leader>sv <cmd>source $MYVIMRC<cr>
+nnoremap <leader>sv <cmd>source $MYVIMRC<cr><cmd>PlugInstall<cr>
+nnoremap <leader>erc <cmd>tabnew $MYVIMRC<cr>
+
+" Disable Ctrl + z as escape
+nnoremap <c-z> <nop>
 
 " Tabs
 nnoremap <c-h> <cmd>tabprevious<cr>
@@ -110,3 +119,5 @@ nnoremap <leader>k :m .-2<cr>==
 " for example clicking one button that gets us to next line with an error
 "
 " Add isort to python fixers
+"
+" Sessions in vim (when I come back I want to have the same files)
