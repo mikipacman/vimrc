@@ -34,11 +34,15 @@ Plug 'nvim-telescope/telescope.nvim'
 " NOTE: make sure that you run :UpdateRemotePlugins
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 
+" For cool bar at the bottom
+Plug 'itchyny/lightline.vim'
+
 " Git support
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'junegunn/gv.vim'
+Plug 'itchyny/vim-gitbranch'
 
 " Smart comments
 Plug 'tpope/vim-commentary'
@@ -68,6 +72,16 @@ let g:signify_sign_change = '~'
 highlight SignifySignAdd    ctermfg=green  guifg=#00ff00
 highlight SignifySignDelete ctermfg=red    guifg=#ff0000
 highlight SignifySignChange ctermfg=yellow guifg=#ffff00
+" Displaying branch name
+let g:lightline = {
+\ 'active': {
+\   'left': [ [ 'mode', 'paste' ],
+\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+\ },
+\ 'component_function': {
+\   'gitbranch': 'gitbranch#name'
+\ },
+\ }
 
 " ##########[ REMAPS ]########################################################
 
