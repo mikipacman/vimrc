@@ -34,6 +34,14 @@ Plug 'nvim-telescope/telescope.nvim'
 " NOTE: make sure that you run :UpdateRemotePlugins
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 
+" Git support
+Plug 'mhinz/vim-signify'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'junegunn/gv.vim'
+
+" Smart comments
+Plug 'tpope/vim-commentary'
 
 call plug#end()
 
@@ -55,11 +63,16 @@ let g:ale_fixers = {
 \   'python': ['black', 'isort'],
 \}
 
+" Git support
+let g:signify_sign_change = '~'
+highlight SignifySignAdd    ctermfg=green  guifg=#00ff00
+highlight SignifySignDelete ctermfg=red    guifg=#ff0000
+highlight SignifySignChange ctermfg=yellow guifg=#ffff00
 
 " ##########[ REMAPS ]########################################################
 
 " VimRc
-nnoremap <leader>sv <cmd>source $MYVIMRC<cr><cmd>PlugInstall<cr>
+nnoremap <leader>lrc <cmd>source $MYVIMRC<cr><cmd>PlugInstall<cr>
 nnoremap <leader>erc <cmd>tabnew $MYVIMRC<cr>
 
 " Disable Ctrl + z as escape
@@ -71,7 +84,7 @@ nnoremap <c-l> <cmd>tabnext<cr>
 nnoremap <c-n> :tabnew<space>
 
 " NerdTree
-nnoremap <c-t> <cmd>NERDTreeToggle<CR>
+nnoremap <c-t> <cmd>NERDTreeToggle<cr>
 
 " Telescope
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
@@ -110,6 +123,36 @@ inoremap <c-k> <esc>:m .-2<cr>==
 nnoremap <leader>j :m .+1<cr>==
 nnoremap <leader>k :m .-2<cr>==
 
+" Disable movement
+nnoremap <left> <nop>
+vnoremap <left> <nop>
+inoremap <left> <nop>
+
+nnoremap <right> <nop>
+vnoremap <right> <nop>
+inoremap <right> <nop>
+
+nnoremap <up> <nop>
+vnoremap <up> <nop>
+inoremap <up> <nop>
+
+nnoremap <down> <nop>
+vnoremap <down> <nop>
+inoremap <down> <nop>
+
+nnoremap <pageup> <nop>
+vnoremap <pageup> <nop>
+inoremap <pageup> <nop>
+
+nnoremap <pagedown> <nop>
+vnoremap <pagedown> <nop>
+inoremap <pagedown> <nop>
+
+" Git support
+" remap Git to git, because I'm lazy
+cmap git Git
+
+
 " ##########[ TODOS AND IDEAS ]###############################################
 
 " Maybe pyling to ale linters only if a pylintrc
@@ -121,3 +164,9 @@ nnoremap <leader>k :m .-2<cr>==
 " Add isort to python fixers
 "
 " Sessions in vim (when I come back I want to have the same files)
+"
+" Find a nice way of skipping a word to the end of the line: answer: A
+"
+" Remap smart comments to <c-/>
+"
+" consider using this https://github.com/lewis6991/gitsigns.nvim/ for git
