@@ -12,7 +12,6 @@ set nowrap
 set smartcase
 set noswapfile
 set nobackup
-set nobackup
 set undodir=~/.nvim/undodir
 set undofile
 set incsearch
@@ -23,8 +22,16 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 call plug#begin('~/.nvim/plugged')
 
+" Color scheme
 Plug 'morhetz/gruvbox'
+
+" Linters and fixers
 Plug 'dense-analysis/ale'
+
+" Completion
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+" File tree explorer
 Plug 'preservim/nerdtree'
 
 " Telescope
@@ -33,56 +40,88 @@ Plug 'nvim-telescope/telescope.nvim'
 
 " Python syntax
 " NOTE: make sure that you run :UpdateRemotePlugins
-Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+" Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 
 " For cool bar at the bottom
 Plug 'itchyny/lightline.vim'
-
-" Git support
-Plug 'mhinz/vim-signify'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'junegunn/gv.vim'
+Plug 'maximbaz/lightline-ale'
 Plug 'itchyny/vim-gitbranch'
 
-" Smart comments
-Plug 'tpope/vim-commentary'
+" Comments
+Plug 'scrooloose/nerdcommenter'
+
+" Matching parenthesis
+Plug 'jiangmiao/auto-pairs'
+
+" Git
+Plug 'airblade/vim-gitgutter'
+
+" Distraction free vim
+Plug 'junegunn/goyo.vim'
+
+" Smooth scrooloose
+Plug 'psliwka/vim-smoothie'
+
+" Fancy start up page
+Plug 'mhinz/vim-startify'
+
 
 call plug#end()
 
-
 " ##########[ SETUP EACH PLUGIN ]#############################################
 
-"Gruvbox
+" Gruvbox
 colorscheme gruvbox
 set background=dark
 
+" Make neovim search things in python env
+" let $PATH='/home/mp/anaconda3/envs/nvim/bin/:$PATH'
+" let $VIRTUAL_ENV='/home/mp/anaconda3/envs/nvim/bin/python'
+
 " ALE
-let g:python3_host_prog='/home/mp/anaconda3/envs/nvim/bin/python'
 let g:ale_fix_on_save = 1
 let g:ale_linters = {
-\   'python': ['pep8', 'pydocstyle', 'bandit', 'mypy'],
-\}
+            \   'python': [ 'flake8', 'pydocstyle', 'bandit', 'mypy' ],
+            \}
 let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['black', 'isort'],
-\}
+            \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \   'python': ['black', 'isort'],
+            \}
 
-" Git support
-let g:signify_sign_change = '~'
-highlight SignifySignAdd    ctermfg=green  guifg=#00ff00
-highlight SignifySignDelete ctermfg=red    guifg=#ff0000
-highlight SignifySignChange ctermfg=yellow guifg=#ffff00
-" Displaying branch name
-let g:lightline = {
-\ 'active': {
-\   'left': [ [ 'mode', 'paste' ],
-\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-\ },
-\ 'component_function': {
-\   'gitbranch': 'gitbranch#name'
-\ },
-\ }
+" Deoplete
+let g:deoplete#enable_at_startup = 1
+
+" Displaying branch name and number of warning in lightline
+
+let g:lightline = {}
+let g:lightline.component_expand = {
+            \  'linter_checking': 'lightline#ale#checking',
+            \  'linter_infos': 'lightline#ale#infos',
+            \  'linter_warnings': 'lightline#ale#warnings',
+            \  'linter_errors': 'lightline#ale#errors',
+            \  'linter_ok': 'lightline#ale#ok',
+            \ }
+let g:lightline.component_type = {
+            \     'linter_infos': 'right',
+            \     'linter_checking': 'right',
+            \     'linter_warnings': 'warning',
+            \     'linter_errors': 'error',
+            \     'linter_ok': 'right',
+            \ }
+let g:lightline.component_function = {
+            \   'gitbranch': 'gitbranch#name'
+            \ }
+let g:lightline.active = {
+            \ 'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
+            \            [ 'lineinfo' ],
+            \            [ 'percent' ],
+            \            [ 'fileformat', 'fileencoding', 'filetype'] ],
+            \  'left': [ [ 'mode', 'paste' ],
+            \            [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+            \ }
+
+" Git
+set updatetime=100
 
 " ##########[ REMAPS ]########################################################
 
@@ -100,6 +139,9 @@ nnoremap <c-n> :tabnew<space>
 
 " NerdTree
 nnoremap <c-t> <cmd>NERDTreeToggle<cr>
+
+" Goyo toggle
+nnoremap <c-d> <cmd>Goyo<cr>
 
 " Telescope
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
@@ -163,10 +205,6 @@ nnoremap <pagedown> <nop>
 vnoremap <pagedown> <nop>
 inoremap <pagedown> <nop>
 
-" Git support
-" remap Git to git, because I'm lazy
-cmap git Git
-
 
 " ##########[ TODOS AND IDEAS ]###############################################
 
@@ -176,12 +214,14 @@ cmap git Git
 " And add a method to quickly iterate over all ALE warnings and errors
 " for example clicking one button that gets us to next line with an error
 "
-" Add isort to python fixers
-"
 " Sessions in vim (when I come back I want to have the same files)
-"
-" Find a nice way of skipping a word to the end of the line: answer: A
 "
 " Remap smart comments to <c-/>
 "
 " consider using this https://github.com/lewis6991/gitsigns.nvim/ for git
+"
+" use LSP for autocompletion and go to
+"
+" figure out how to work with autocompletion
+"
+" add git branch integration
