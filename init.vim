@@ -65,6 +65,8 @@ Plug 'psliwka/vim-smoothie'
 " Fancy start up page
 Plug 'mhinz/vim-startify'
 
+" Which key
+Plug 'liuchengxu/vim-which-key'
 
 call plug#end()
 
@@ -123,7 +125,17 @@ let g:lightline.active = {
 " Git
 set updatetime=100
 
+" Which key
+nnoremap <silent> <leader> :WhichKey '<space>'<CR>
+
+" Smoothie
+let g:smoothie_no_default_mappings = 1
+
 " ##########[ REMAPS ]########################################################
+
+" Leader
+nnoremap <SPACE> <Nop>
+let mapleader=" "
 
 " VimRc
 nnoremap <leader>lrc <cmd>source $MYVIMRC<cr><cmd>PlugInstall<cr>
@@ -205,6 +217,9 @@ nnoremap <pagedown> <nop>
 vnoremap <pagedown> <nop>
 inoremap <pagedown> <nop>
 
+" Moving up and down
+nmap <c-j> <plug>(SmoothieDownwards)
+nmap <c-k> <plug>(SmoothieUpwards)
 
 " ##########[ TODOS AND IDEAS ]###############################################
 
@@ -218,10 +233,11 @@ inoremap <pagedown> <nop>
 "
 " Remap smart comments to <c-/>
 "
-" consider using this https://github.com/lewis6991/gitsigns.nvim/ for git
-"
 " use LSP for autocompletion and go to
 "
 " figure out how to work with autocompletion
 "
-" add git branch integration
+" Git
+"   - figure out how to do blame
+"   - figure out how to make diffs
+"

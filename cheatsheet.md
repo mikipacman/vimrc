@@ -6,3 +6,7 @@
 
 ## GitGutter
 - [c ]c - moving between hunks
+
+## Which Key
+- \ - trigger which key guidelines
+- <space> - leader, does not trigger guidelines
