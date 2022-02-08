@@ -68,3 +68,35 @@ keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
 keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
+
+-- Disable c-z
+keymap("n", "<c-z>", "<nop>", opts)
+
+-- Tabs
+keymap("n", "<c-h>", "<cmd>tabprevious<cr>", opts)
+keymap("n", "<c-l>", "<cmd>tabnext<cr>", opts)
+keymap("n", "<c-n>", ":tabnew<space>", opts)
+
+----------------------------------------------------------------------------------------
+
+--" NerdTree
+keymap("n", "<c-t>", "<cmd>NERDTreeToggle<cr>", opts)
+
+--" Goyo toggle
+keymap("n", "<c-d>", "<cmd>Goyo<cr>", opts)
+
+--" Telescope
+keymap("n", "<leader>ff", "<cmd>Telescope find_files<cr>", opts)
+keymap("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", opts)
+keymap("n", "<leader>fb", "<cmd>Telescope buffers<cr>", opts)
+keymap("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", opts)
+
+--" Stop highlighting text after search
+--nnoremap <leader><space> <cmd>noh<cr>
+keymap("n", "<leader><space>", "<cmd>noh<cr>", opts)
+
+--" Moving up and down
+keymap("n", "<c-j>", "<plug>(SmoothieDownwards)", opts)
+keymap("n", "<c-k>", "<plug>(SmoothieUpwards)", opts)
+
+

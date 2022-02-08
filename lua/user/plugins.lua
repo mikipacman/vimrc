@@ -66,6 +66,33 @@ return packer.startup(function(use)
   use "neovim/nvim-lspconfig" -- enable LSP
   use "williamboman/nvim-lsp-installer" -- simple to use language server installer
 
+  -- NerdTree
+  use "preservim/nerdtree"
+
+  -- Comments
+  use "scrooloose/nerdcommenter"
+
+  -- Git
+  use 'airblade/vim-gitgutter'
+
+  -- Distraction free
+  use 'junegunn/goyo.vim'
+
+  -- Matching parenthesis
+  use 'jiangmiao/auto-pairs'
+
+  -- telescope
+  use 'nvim-telescope/telescope.nvim'
+
+  -- Smooth scroll
+  use 'psliwka/vim-smoothie'
+
+  -- Fancy start up
+  use 'mhinz/vim-startify'
+
+  -- Linters and fixers
+  use 'dense-analysis/ale'
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
