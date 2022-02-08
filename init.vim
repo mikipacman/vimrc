@@ -28,19 +28,12 @@ Plug 'morhetz/gruvbox'
 " Linters and fixers
 Plug 'dense-analysis/ale'
 
-" Completion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
 " File tree explorer
 Plug 'preservim/nerdtree'
 
 " Telescope
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-
-" Python syntax
-" NOTE: make sure that you run :UpdateRemotePlugins
-" Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 
 " For cool bar at the bottom
 Plug 'itchyny/lightline.vim'
@@ -68,6 +61,9 @@ Plug 'mhinz/vim-startify'
 " Which key
 Plug 'liuchengxu/vim-which-key'
 
+" LSP completion
+Plug 'prabirshrestha/vim-lsp'
+
 call plug#end()
 
 " ##########[ SETUP EACH PLUGIN ]#############################################
@@ -82,19 +78,17 @@ set background=dark
 
 " ALE
 let g:ale_fix_on_save = 1
+let g:ale_disable_lsp = 1
 let g:ale_linters = {
-            \   'python': [ 'flake8', 'pydocstyle', 'bandit', 'mypy' ],
+            \   'python': ['pydocstyle', 'bandit', 'mypy'],
             \}
 let g:ale_fixers = {
             \   '*': ['remove_trailing_lines', 'trim_whitespace'],
             \   'python': ['black', 'isort'],
             \}
-
-" Deoplete
-let g:deoplete#enable_at_startup = 1
+let g:ale_python_black_options = '-l 80 --experimental-string-processing'
 
 " Displaying branch name and number of warning in lightline
-
 let g:lightline = {}
 let g:lightline.component_expand = {
             \  'linter_checking': 'lightline#ale#checking',
@@ -130,6 +124,8 @@ nnoremap <silent> <leader> :WhichKey '<space>'<CR>
 
 " Smoothie
 let g:smoothie_no_default_mappings = 1
+
+lua require('basic')
 
 " ##########[ REMAPS ]########################################################
 
@@ -241,3 +237,16 @@ nmap <c-k> <plug>(SmoothieUpwards)
 "   - figure out how to do blame
 "   - figure out how to make diffs
 "
+" Special support for python syntax
+"    Python syntax
+"    NOTE: make sure that you run :UpdateRemotePlugins
+"    Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+"
+" ALE
+"   - make it work with envs -> import gin works
+"
+" Migrate to LUA
+" - https://vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua/
+"
+"
+" Highliting current line number
